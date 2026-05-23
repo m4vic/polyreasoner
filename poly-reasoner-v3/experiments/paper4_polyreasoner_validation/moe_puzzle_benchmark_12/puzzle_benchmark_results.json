@@ -1,0 +1,916 @@
+{
+    "timestamp": "2026-05-11T22:22:59.843191",
+    "models": {
+        "single": "qwen3.5:9b",
+        "moe": [
+            "qwen2.5-coder:7b",
+            "llama3.1:8b",
+            "mistral:7b"
+        ],
+        "synth": "qwen3.5:9b"
+    },
+    "summary": {
+        "single": {
+            "n_correct": 0,
+            "n_total": 12,
+            "accuracy": 0.0,
+            "avg_latency": 15.52
+        },
+        "single_cot": {
+            "n_correct": 0,
+            "n_total": 12,
+            "accuracy": 0.0,
+            "avg_latency": 14.78
+        },
+        "moe_vote": {
+            "n_correct": 7,
+            "n_total": 12,
+            "accuracy": 0.5833,
+            "avg_latency": 21.67
+        },
+        "moe_synth": {
+            "n_correct": 0,
+            "n_total": 12,
+            "accuracy": 0.0,
+            "avg_latency": 48.54
+        }
+    },
+    "puzzles": [
+        {
+            "id": "logic_01",
+            "category": "logic",
+            "difficulty": "easy",
+            "question": "If all Bloops are Razzles, and all Razzles are Lazzles, are all Bloops definitely Lazzles?",
+            "expected_answer": "yes",
+            "single": {
+                "raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 32.21
+            },
+            "single_cot": {
+                "raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 20.95
+            },
+            "moe_vote": {
+                "experts": [
+                    {
+                        "model": "qwen2.5-coder:7b",
+                        "raw": "Yes, if all Bloops are Razzles and all Razzles are Lazzles, then all Bloops are definitely Lazzles. This follows from the transitive property of set inclusion.\n\nFINAL ANSWER: Yes",
+                        "extracted": "Yes",
+                        "correct": true,
+                        "latency": 10.32
+                    },
+                    {
+                        "model": "llama3.1:8b",
+                        "raw": "Yes, by transitive property of equality, if A = B and B = C, then A = C.\n\nFINAL ANSWER: Yes.",
+                        "extracted": "Yes.",
+                        "correct": true,
+                        "latency": 10.79
+                    },
+                    {
+                        "model": "mistral:7b",
+                        "raw": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "extracted": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "correct": false,
+                        "latency": 0.0
+                    }
+                ],
+                "correct": true,
+                "n_experts_correct": 2,
+                "latency": 21.11
+            },
+            "moe_synth": {
+                "experts": [
+                    {
+                        "model": "qwen2.5-coder:7b",
+                        "raw": "Yes, if all Bloops are Razzles and all Razzles are Lazzles, then all Bloops are definitely Lazzles. This follows from the transitive property of set inclusion.\n\nFINAL ANSWER: Yes",
+                        "extracted": "Yes",
+                        "latency": 10.7
+                    },
+                    {
+                        "model": "llama3.1:8b",
+                        "raw": "Yes, by transitive property of equality, if A = B and B = C, then A = C.\n\nFINAL ANSWER: Yes.",
+                        "extracted": "Yes.",
+                        "latency": 10.9
+                    },
+                    {
+                        "model": "mistral:7b",
+                        "raw": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "extracted": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "latency": 0.0
+                    }
+                ],
+                "synthesizer_raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 54.83
+            }
+        },
+        {
+            "id": "logic_02",
+            "category": "logic",
+            "difficulty": "medium",
+            "question": "Three friends \u2014 Alice, Bob, Carol \u2014 each pick a different number from {1, 2, 3}. Alice does not pick 1. Bob picks a higher number than Alice. What number does Carol pick?",
+            "expected_answer": "1",
+            "single": {
+                "raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 21.11
+            },
+            "single_cot": {
+                "raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 21.11
+            },
+            "moe_vote": {
+                "experts": [
+                    {
+                        "model": "qwen2.5-coder:7b",
+                        "raw": "Since Alice does not pick 1 and Bob picks a higher number than Alice, the only possible numbers left for Alice are 2 or 3.\n\nIf Alice picks 2, then Bob must pick 3 (the only remaining higher number).\n\nThis leaves Carol with the number 1.\n\nTherefore, Carol picks 1.\n\nFINAL ANSWER: 1",
+                        "extracted": "1",
+                        "correct": true,
+                        "latency": 10.73
+                    },
+                    {
+                        "model": "llama3.1:8b",
+                        "raw": "Since Alice doesn't pick 1 and there are only three numbers to choose from, Alice must pick either 2 or 3.\n\nIf Alice picks 2, then Bob can't pick a higher number than Alice because the highest number is 3. So, if Alice picks 2, Bob must pick 3, and Carol must pick 1 (the only remaining number).\n\nIf Alice picks 3, then Bob must pick either 2 or 3. If Bob picks 3, Carol can't pick a different number than Bob, so this case is impossible.\n\nSo, if Alice picks 3, Bob must pick 2, and Carol must pick 1 (the only remaining number).\n\nTherefore, the only possible scenario is that Alice picks 2, Bob picks 3, and Carol picks 1.\n\nFINAL ANSWER: 1.",
+                        "extracted": "1.",
+                        "correct": true,
+                        "latency": 12.93
+                    },
+                    {
+                        "model": "mistral:7b",
+                        "raw": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "extracted": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "correct": false,
+                        "latency": 0.0
+                    }
+                ],
+                "correct": true,
+                "n_experts_correct": 2,
+                "latency": 23.66
+            },
+            "moe_synth": {
+                "experts": [
+                    {
+                        "model": "qwen2.5-coder:7b",
+                        "raw": "Since Alice does not pick 1 and Bob picks a higher number than Alice, the only possible numbers left for Alice are 2 or 3.\n\nIf Alice picked 2:\n- Bob would have to pick 3 (the only remaining higher number).\n- This leaves Carol with 1.\n\nIf Alice picked 3:\n- Bob cannot pick a higher number since there is no number greater than 3 in the set {1, 2, 3}.\n\nTherefore, the only valid scenario is that Alice picks 2, Bob picks 3, and Carol picks 1.\n\nFINAL ANSWER: 1",
+                        "extracted": "1",
+                        "latency": 11.4
+                    },
+                    {
+                        "model": "llama3.1:8b",
+                        "raw": "Since Alice doesn't pick 1 and the numbers are distinct, Alice must pick either 2 or 3.\n\nIf Alice picks 2, then Bob can only pick 3 (since he needs to pick a higher number than Alice). In this case, Carol is left with 1, which she must pick.\n\nIf Alice picks 3, then Bob can pick either 2 or 3. If Bob picks 3, then Carol is left with 2. But if Bob picks 2, then Carol is left with 1 (which we've already established as the only option for her).\n\nSo in all cases, Carol must pick 1.\n\nFINAL ANSWER: 1",
+                        "extracted": "1",
+                        "latency": 12.31
+                    },
+                    {
+                        "model": "mistral:7b",
+                        "raw": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "extracted": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "latency": 0.0
+                    }
+                ],
+                "synthesizer_raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 49.26
+            }
+        },
+        {
+            "id": "logic_03",
+            "category": "logic",
+            "difficulty": "hard",
+            "question": "A farmer has 17 sheep. All but 9 die. How many sheep are left?",
+            "expected_answer": "9",
+            "single": {
+                "raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 13.08
+            },
+            "single_cot": {
+                "raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 13.17
+            },
+            "moe_vote": {
+                "experts": [
+                    {
+                        "model": "qwen2.5-coder:7b",
+                        "raw": "8 sheep are left.\n\nFINAL ANSWER: 8",
+                        "extracted": "8",
+                        "correct": false,
+                        "latency": 9.14
+                    },
+                    {
+                        "model": "llama3.1:8b",
+                        "raw": "To find the number of sheep left, subtract the number that died from the total.\n\n17 (total) - 9 (died) = 8\n\nFINAL ANSWER: 8",
+                        "extracted": "8",
+                        "correct": true,
+                        "latency": 10.5
+                    },
+                    {
+                        "model": "mistral:7b",
+                        "raw": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "extracted": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "correct": false,
+                        "latency": 0.0
+                    }
+                ],
+                "correct": false,
+                "n_experts_correct": 1,
+                "latency": 19.64
+            },
+            "moe_synth": {
+                "experts": [
+                    {
+                        "model": "qwen2.5-coder:7b",
+                        "raw": "The farmer loses 8 sheep (17 - 9 = 8). \n\nFINAL ANSWER: 9 sheep are left.",
+                        "extracted": "9 sheep are left.",
+                        "latency": 9.59
+                    },
+                    {
+                        "model": "llama3.1:8b",
+                        "raw": "If all but 9 die, that means only 9 sheep are left.\n\nFINAL ANSWER: 9",
+                        "extracted": "9",
+                        "latency": 10.37
+                    },
+                    {
+                        "model": "mistral:7b",
+                        "raw": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "extracted": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "latency": 0.0
+                    }
+                ],
+                "synthesizer_raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 45.05
+            }
+        },
+        {
+            "id": "logic_04",
+            "category": "logic",
+            "difficulty": "hard",
+            "question": "You have a 3-gallon jug and a 5-gallon jug, no markings. How do you measure exactly 4 gallons? Give the minimum number of steps.",
+            "expected_answer": "6",
+            "single": {
+                "raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 13.15
+            },
+            "single_cot": {
+                "raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 13.16
+            },
+            "moe_vote": {
+                "experts": [
+                    {
+                        "model": "qwen2.5-coder:7b",
+                        "raw": "1. Fill the 5-gallon jug.\n2. Pour water from the 5-gallon jug into the 3-gallon jug until it's full.\n3. The 5-gallon jug now has 2 gallons left.\n\nFINAL ANSWER: 3 steps",
+                        "extracted": "3 steps",
+                        "correct": false,
+                        "latency": 9.91
+                    },
+                    {
+                        "model": "llama3.1:8b",
+                        "raw": "Fill the 5-gallon jug completely (step 1). Pour water from the 5-gallon jug into the 3-gallon jug until the 3-gallon jug is full (leaving 2 gallons in the 5-gallon jug, step 2). Empty the 3-gallon jug (step 3). Fill the 3-gallon jug completely again (step 4). Pour water from the 5-gallon jug into the 3-gallon jug until the 3-gallon jug is full (which will leave exactly 1 gallon in the 5-gallon jug, step 5).\n\nFINAL ANSWER: 5 steps.",
+                        "extracted": "5 steps.",
+                        "correct": false,
+                        "latency": 12.29
+                    },
+                    {
+                        "model": "mistral:7b",
+                        "raw": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "extracted": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "correct": false,
+                        "latency": 0.0
+                    }
+                ],
+                "correct": false,
+                "n_experts_correct": 0,
+                "latency": 22.2
+            },
+            "moe_synth": {
+                "experts": [
+                    {
+                        "model": "qwen2.5-coder:7b",
+                        "raw": "1. Fill the 5-gallon jug.\n2. Pour water from the 5-gallon jug into the 3-gallon jug until it's full.\n3. The 5-gallon jug now has 2 gallons left.\n4. Empty the 3-gallon jug.\n5. Pour the remaining 2 gallons from the 5-gallon jug into the 3-gallon jug.\n6. Fill the 5-gallon jug again.\n7. Pour water from the 5-gallon jug into the 3-gallon jug until it's full (which will require only 1 gallon since it already has 2 gallons).\n\nNow, the 5-gallon jug has exactly 4 gallons of water.\n\nFINAL ANSWER: 7 steps",
+                        "extracted": "7 steps",
+                        "latency": 11.84
+                    },
+                    {
+                        "model": "llama3.1:8b",
+                        "raw": "Fill the 5-gallon jug completely (step 1). Empty it into the 3-gallon jug (step 2). Fill the 5-gallon jug again and empty it into a container to be discarded, leaving 2 gallons in the 5-gallon jug (step 3). Fill the 3-gallon jug completely (step 4) and pour from it into the 5-gallon jug until the 5-gallon jug is full, which will leave exactly 1 gallon in the 3-gallon jug (step 5). Empty the 2 gallons from step 3 back into the 5-gallon jug (step 6). Fill the 3-gallon jug completely and pour it into the 5-gallon jug until the 5-gallon jug is full, which will leave exactly 4 gallons in the 3-gallon jug.\n\nFINAL ANSWER: 6 steps.",
+                        "extracted": "6 steps.",
+                        "latency": 16.05
+                    },
+                    {
+                        "model": "mistral:7b",
+                        "raw": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "extracted": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "latency": 0.0
+                    }
+                ],
+                "synthesizer_raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 54.21
+            }
+        },
+        {
+            "id": "math_01",
+            "category": "math",
+            "difficulty": "easy",
+            "question": "A bat and ball cost $1.10 total. The bat costs $1.00 more than the ball. How much does the ball cost in cents?",
+            "expected_answer": "5",
+            "single": {
+                "raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 13.79
+            },
+            "single_cot": {
+                "raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 13.83
+            },
+            "moe_vote": {
+                "experts": [
+                    {
+                        "model": "qwen2.5-coder:7b",
+                        "raw": "Let's denote the cost of the ball as \\( x \\) dollars. According to the problem, the bat costs $1.00 more than the ball, so the bat costs \\( x + 1 \\) dollars.\n\nThe total cost of the bat and the ball is given as $1.10. Therefore, we can set up the following equation:\n\n\\[\nx + (x + 1) = 1.10\n\\]\n\nSimplifying this equation:\n\n\\[\n2x + 1 = 1.10\n\\]\n\nSubtract 1 from both sides:\n\n\\[\n2x = 0.10\n\\]\n\nDivide by 2:\n\n\\[\nx = 0.05\n\\]\n\nSo, the ball costs $0.05 or 5 cents.\n\nFINAL ANSWER: 5",
+                        "extracted": "5",
+                        "correct": true,
+                        "latency": 12.22
+                    },
+                    {
+                        "model": "llama3.1:8b",
+                        "raw": "Let b be the cost of the ball in dollars.\n\nThe bat costs b + 1.00 dollars.\n\nSince their total cost is 1.10 dollars, we can write an equation:\n\nb + (b + 1.00) = 1.10\n\nCombine like terms:\n2b + 1.00 = 1.10\n\nSubtract 1.00 from both sides:\n2b = 0.10\n\nDivide by 2:\nb = 0.05\n\nThe ball costs 5 cents.\n\nFINAL ANSWER: 5",
+                        "extracted": "5",
+                        "correct": true,
+                        "latency": 12.1
+                    },
+                    {
+                        "model": "mistral:7b",
+                        "raw": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "extracted": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "correct": false,
+                        "latency": 0.0
+                    }
+                ],
+                "correct": true,
+                "n_experts_correct": 2,
+                "latency": 24.32
+            },
+            "moe_synth": {
+                "experts": [
+                    {
+                        "model": "qwen2.5-coder:7b",
+                        "raw": "Let's denote the cost of the ball as \\( x \\) dollars. According to the problem, the bat costs $1.00 more than the ball, so the bat costs \\( x + 1 \\) dollars.\n\nThe total cost of the bat and the ball is given as $1.10. Therefore, we can set up the following equation:\n\n\\[ x + (x + 1) = 1.10 \\]\n\nSimplifying this equation:\n\n\\[ 2x + 1 = 1.10 \\]\n\nSubtracting 1 from both sides:\n\n\\[ 2x = 0.10 \\]\n\nDividing both sides by 2:\n\n\\[ x = 0.05 \\]\n\nSo, the ball costs $0.05, which is equivalent to 5 cents.\n\nFINAL ANSWER: 5",
+                        "extracted": "5",
+                        "latency": 12.59
+                    },
+                    {
+                        "model": "llama3.1:8b",
+                        "raw": "Let b be the cost of the ball in dollars.\n\nThe bat costs b + 1.00 dollars.\n\nSince their total cost is $1.10, we have:\nb + (b + 1.00) = 1.10\nCombine like terms: \n2b + 1.00 = 1.10\nSubtract 1.00 from both sides: \n2b = 0.10\nDivide by 2: \nb = 0.05\n\nThe ball costs $0.05, which is 5 cents.\n\nFINAL ANSWER: 5",
+                        "extracted": "5",
+                        "latency": 12.35
+                    },
+                    {
+                        "model": "mistral:7b",
+                        "raw": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "extracted": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "latency": 0.0
+                    }
+                ],
+                "synthesizer_raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 51.57
+            }
+        },
+        {
+            "id": "math_02",
+            "category": "math",
+            "difficulty": "medium",
+            "question": "If it takes 5 machines 5 minutes to make 5 widgets, how many minutes does it take 100 machines to make 100 widgets?",
+            "expected_answer": "5",
+            "single": {
+                "raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 13.77
+            },
+            "single_cot": {
+                "raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 13.89
+            },
+            "moe_vote": {
+                "experts": [
+                    {
+                        "model": "qwen2.5-coder:7b",
+                        "raw": "The time required is independent of the number of machines or widgets. If 5 machines can make 5 widgets in 5 minutes, then 100 machines can also make 100 widgets in the same amount of time.\n\nFINAL ANSWER: 5 minutes",
+                        "extracted": "5 minutes",
+                        "correct": true,
+                        "latency": 10.14
+                    },
+                    {
+                        "model": "llama3.1:8b",
+                        "raw": "The number of machines and the number of widgets are directly proportional. Since it takes 5 machines 5 minutes to make 5 widgets, it will take 100 machines 5 minutes to make 100 widgets.\n\nFINAL ANSWER: 5",
+                        "extracted": "5",
+                        "correct": true,
+                        "latency": 10.72
+                    },
+                    {
+                        "model": "mistral:7b",
+                        "raw": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "extracted": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "correct": false,
+                        "latency": 0.0
+                    }
+                ],
+                "correct": true,
+                "n_experts_correct": 2,
+                "latency": 20.85
+            },
+            "moe_synth": {
+                "experts": [
+                    {
+                        "model": "qwen2.5-coder:7b",
+                        "raw": "The time required for the machines to produce the widgets is independent of the number of machines or widgets. Since 5 machines can make 5 widgets in 5 minutes, 100 machines will also make 100 widgets in the same amount of time.\n\nFINAL ANSWER: 5 minutes",
+                        "extracted": "5 minutes",
+                        "latency": 10.39
+                    },
+                    {
+                        "model": "llama3.1:8b",
+                        "raw": "The number of machines and the number of widgets are directly proportional. Since it takes 5 machines 5 minutes to make 5 widgets, it will also take 100 machines 5 minutes to make 100 widgets.\n\nFINAL ANSWER: 5",
+                        "extracted": "5",
+                        "latency": 10.8
+                    },
+                    {
+                        "model": "mistral:7b",
+                        "raw": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "extracted": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "latency": 0.0
+                    }
+                ],
+                "synthesizer_raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 46.41
+            }
+        },
+        {
+            "id": "math_03",
+            "category": "math",
+            "difficulty": "hard",
+            "question": "A lily pad doubles in size every day. It takes 48 days to cover half the pond. How many days to cover the whole pond?",
+            "expected_answer": "49",
+            "single": {
+                "raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 13.1
+            },
+            "single_cot": {
+                "raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 13.16
+            },
+            "moe_vote": {
+                "experts": [
+                    {
+                        "model": "qwen2.5-coder:7b",
+                        "raw": "The lily pad doubles in size every day, so if it covers half the pond on day 48, it will cover the entire pond the next day.\n\nFINAL ANSWER: 49 days",
+                        "extracted": "49 days",
+                        "correct": true,
+                        "latency": 9.72
+                    },
+                    {
+                        "model": "llama3.1:8b",
+                        "raw": "Since it covers half the pond in 48 days, and it doubles in size each day, it will take one more day to cover the entire pond.\n\nFINAL ANSWER: 49",
+                        "extracted": "49",
+                        "correct": true,
+                        "latency": 10.47
+                    },
+                    {
+                        "model": "mistral:7b",
+                        "raw": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "extracted": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "correct": false,
+                        "latency": 0.0
+                    }
+                ],
+                "correct": true,
+                "n_experts_correct": 2,
+                "latency": 20.2
+            },
+            "moe_synth": {
+                "experts": [
+                    {
+                        "model": "qwen2.5-coder:7b",
+                        "raw": "Since the lily pad doubles in size every day and it covers half the pond on the 48th day, it will cover the entire pond the next day.\n\nFINAL ANSWER: 49 days",
+                        "extracted": "49 days",
+                        "latency": 10.02
+                    },
+                    {
+                        "model": "llama3.1:8b",
+                        "raw": "Since it covers half the pond in 48 days, and it doubles in size each day, it will take one more day to cover the entire pond.\n\nFINAL ANSWER: 49",
+                        "extracted": "49",
+                        "latency": 10.41
+                    },
+                    {
+                        "model": "mistral:7b",
+                        "raw": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "extracted": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "latency": 0.0
+                    }
+                ],
+                "synthesizer_raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 45.72
+            }
+        },
+        {
+            "id": "lateral_01",
+            "category": "lateral",
+            "difficulty": "medium",
+            "question": "A man walks into a restaurant and orders albatross soup. He takes one sip and immediately goes home and kills himself. Why?",
+            "expected_answer": "He realized the soup was not real albatross \u2014 it meant his wife had died on the island.",
+            "single": {
+                "raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 13.1
+            },
+            "single_cot": {
+                "raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 13.17
+            },
+            "moe_vote": {
+                "experts": [
+                    {
+                        "model": "qwen2.5-coder:7b",
+                        "raw": "The man likely ordered albatross soup because it is considered a delicacy made from the flesh of an albatross, which is an endangered species. The sight or taste of such a dish might have triggered feelings of guilt, remorse, or existential dread due to its association with the decline of wildlife and environmental degradation. This could lead to severe psychological distress, ultimately resulting in suicide.\n\nFINAL ANSWER: The man likely ordered albatross soup because it is associated with endangered species, triggering feelings of guilt and leading to suicide.",
+                        "extracted": "The man likely ordered albatross soup because it is associated with endangered species, triggering feelings of guilt and leading to suicide.",
+                        "correct": false,
+                        "latency": 10.75
+                    },
+                    {
+                        "model": "llama3.1:8b",
+                        "raw": "The man is referencing Samuel Taylor Coleridge's poem \"The Rime of the Ancient Mariner,\" where an albatross brings bad luck to a sailor who kills it, leading to his downfall.\n\nIn this scenario, the man orders albatross soup as a reference to the poem and its themes of guilt, shame, and impending doom. He takes one sip, implying that he is acknowledging or accepting his own fate, and then goes home to kill himself, suggesting that he feels trapped by his circumstances or weighed down by some unspoken burden.\n\nFINAL ANSWER: The man's actions are a metaphorical reference to the poem, indicating that he feels overwhelmed by guilt, shame, or impending doom.",
+                        "extracted": "The man's actions are a metaphorical reference to the poem, indicating that he feels overwhelmed by guilt, shame, or impending doom.",
+                        "correct": false,
+                        "latency": 12.39
+                    },
+                    {
+                        "model": "mistral:7b",
+                        "raw": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "extracted": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "correct": false,
+                        "latency": 0.0
+                    }
+                ],
+                "correct": false,
+                "n_experts_correct": 0,
+                "latency": 23.13
+            },
+            "moe_synth": {
+                "experts": [
+                    {
+                        "model": "qwen2.5-coder:7b",
+                        "raw": "The man likely ordered the albatross soup because it was advertised as containing a rare ingredient that could cause severe allergic reactions, which he had an unknown allergy to. The immediate death suggests a fatal anaphylactic shock from consuming the soup.\n\nFINAL ANSWER: The man died due to an allergic reaction to the albatross soup.",
+                        "extracted": "The man died due to an allergic reaction to the albatross soup.",
+                        "latency": 10.32
+                    },
+                    {
+                        "model": "llama3.1:8b",
+                        "raw": "The man is referencing the poem \"The Rime of the Ancient Mariner\" by Samuel Taylor Coleridge, where an albatross brings bad luck to a sailor who kills it.\n\nIn this context, the man orders albatross soup as a metaphor for guilt and responsibility, implying that he feels guilty about something related to an albatross. The fact that he takes one sip and immediately goes home suggests that the guilt is overwhelming, leading him to take his own life.\n\nFINAL ANSWER: He feels overwhelmed by guilt related to killing an albatross.",
+                        "extracted": "He feels overwhelmed by guilt related to killing an albatross.",
+                        "latency": 11.79
+                    },
+                    {
+                        "model": "mistral:7b",
+                        "raw": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "extracted": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "latency": 0.0
+                    }
+                ],
+                "synthesizer_raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 47.39
+            }
+        },
+        {
+            "id": "lateral_02",
+            "category": "lateral",
+            "difficulty": "easy",
+            "question": "A woman shoots her husband, then dines with him that evening. How?",
+            "expected_answer": "She is a photographer. She shot him with a camera.",
+            "single": {
+                "raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 13.1
+            },
+            "single_cot": {
+                "raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 13.17
+            },
+            "moe_vote": {
+                "experts": [
+                    {
+                        "model": "qwen2.5-coder:7b",
+                        "raw": "The scenario describes a situation where the woman shoots her husband and then continues to dine with him that evening. This is a complex and disturbing situation that requires careful consideration of various factors such as mental health, legal implications, and potential motives.\n\nFINAL ANSWER: The woman could have shot her husband in self-defense or due to some form of mental illness, but the fact remains that she continued to dine with him afterward, indicating a level of normalcy or manipulation.",
+                        "extracted": "The woman could have shot her husband in self-defense or due to some form of mental illness, but the fact remains that she continued to dine with him afterward, indicating a level of normalcy or manipulation.",
+                        "correct": false,
+                        "latency": 10.48
+                    },
+                    {
+                        "model": "llama3.1:8b",
+                        "raw": "The woman is a photographer and has taken a picture of her husband. They dine together in the sense that they are sitting at a table looking at the photograph.\n\nFINAL ANSWER: She's a photographer.",
+                        "extracted": "She's a photographer.",
+                        "correct": true,
+                        "latency": 10.52
+                    },
+                    {
+                        "model": "mistral:7b",
+                        "raw": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "extracted": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "correct": false,
+                        "latency": 0.0
+                    }
+                ],
+                "correct": false,
+                "n_experts_correct": 1,
+                "latency": 20.99
+            },
+            "moe_synth": {
+                "experts": [
+                    {
+                        "model": "qwen2.5-coder:7b",
+                        "raw": "The scenario describes a situation where the woman shoots her husband and then continues to dine with him that evening. This is a complex and disturbing situation that requires careful consideration of various factors such as mental health, legal implications, and potential motives.\n\nFINAL ANSWER: The woman could have shot her husband in self-defense or due to some form of mental illness, but regardless of the reason, she continued to dine with him that evening, indicating a lack of immediate action or intervention.",
+                        "extracted": "The woman could have shot her husband in self-defense or due to some form of mental illness, but regardless of the reason, she continued to dine with him that evening, indicating a lack of immediate action or intervention.",
+                        "latency": 10.89
+                    },
+                    {
+                        "model": "llama3.1:8b",
+                        "raw": "The woman is a photographer and has taken a picture of her husband. They dine together in the sense that they are sitting at a table looking at the photograph.\n\nFINAL ANSWER: She's a photographer.",
+                        "extracted": "She's a photographer.",
+                        "latency": 10.54
+                    },
+                    {
+                        "model": "mistral:7b",
+                        "raw": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "extracted": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "latency": 0.0
+                    }
+                ],
+                "synthesizer_raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 46.67
+            }
+        },
+        {
+            "id": "constraint_01",
+            "category": "constraint",
+            "difficulty": "medium",
+            "question": "Four people need to cross a bridge at night with one torch. The bridge holds max 2 people. Crossing times: A=1min, B=2min, C=5min, D=10min. A pair crosses at the slower person's speed. The torch must be walked back. What is the minimum time for all 4 to cross?",
+            "expected_answer": "17",
+            "single": {
+                "raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 13.17
+            },
+            "single_cot": {
+                "raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 13.21
+            },
+            "moe_vote": {
+                "experts": [
+                    {
+                        "model": "qwen2.5-coder:7b",
+                        "raw": "To minimize the total crossing time, we need to optimize the trips and returns of the torch. Here\u2019s an efficient strategy:\n\n1. A (1 min) and B (2 min) cross together (2 minutes).\n2. A (1 min) returns with the torch (1 minute).\n3. C (5 min) and D (10 min) cross together (10 minutes).\n4. B (2 min) returns with the torch (2 minutes).\n5. A (1 min) and B (2 min) cross together again (2 minutes).\n\nTotal time: 2 + 1 + 10 + 2 + 2 = 17 minutes.\n\nFINAL ANSWER: 17 minutes",
+                        "extracted": "17 minutes",
+                        "correct": true,
+                        "latency": 11.58
+                    },
+                    {
+                        "model": "llama3.1:8b",
+                        "raw": "Step 1: A and B cross (2 min), A returns with the torch (1 min) = 3 min\nStep 2: C and D cross (10 min)\nStep 3: A and B cross again (2 min)\n\nTotal time: 3 + 10 + 2 = 15 min\n\nFINAL ANSWER: 15",
+                        "extracted": "15",
+                        "correct": false,
+                        "latency": 11.15
+                    },
+                    {
+                        "model": "mistral:7b",
+                        "raw": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "extracted": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "correct": false,
+                        "latency": 0.0
+                    }
+                ],
+                "correct": false,
+                "n_experts_correct": 1,
+                "latency": 22.74
+            },
+            "moe_synth": {
+                "experts": [
+                    {
+                        "model": "qwen2.5-coder:7b",
+                        "raw": "To minimize the total crossing time, we need to optimize the trips and return times of the individuals with the torch.\n\nHere\u2019s an optimal strategy:\n\n1. A (1 min) and B (2 min) cross together: 2 minutes.\n2. A returns with the torch: 1 minute.\n3. C (5 min) and D (10 min) cross together: 10 minutes.\n4. B returns with the torch: 2 minutes.\n5. A and B cross together again: 2 minutes.\n\nTotal time = 2 + 1 + 10 + 2 + 2 = 17 minutes.\n\nFINAL ANSWER: 17 minutes",
+                        "extracted": "17 minutes",
+                        "latency": 11.78
+                    },
+                    {
+                        "model": "llama3.1:8b",
+                        "raw": "Step 1: A and B cross (2 min), A returns with the torch (1 min) = 3 min\nStep 2: C and D cross (10 min)\nStep 3: A and B cross again (2 min)\n\nTotal time: 3 + 10 + 2 = 15 min\n\nFINAL ANSWER: 15",
+                        "extracted": "15",
+                        "latency": 11.28
+                    },
+                    {
+                        "model": "mistral:7b",
+                        "raw": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "extracted": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "latency": 0.0
+                    }
+                ],
+                "synthesizer_raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 48.58
+            }
+        },
+        {
+            "id": "trick_01",
+            "category": "trick",
+            "difficulty": "easy",
+            "question": "How many months have 28 days?",
+            "expected_answer": "12",
+            "single": {
+                "raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 13.09
+            },
+            "single_cot": {
+                "raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 13.12
+            },
+            "moe_vote": {
+                "experts": [
+                    {
+                        "model": "qwen2.5-coder:7b",
+                        "raw": "All months except February typically have either 30 or 31 days, but February has exactly 28 days in common years. \n\nFINAL ANSWER: 1 month (February)",
+                        "extracted": "1 month (February)",
+                        "correct": true,
+                        "latency": 9.48
+                    },
+                    {
+                        "model": "llama3.1:8b",
+                        "raw": "All 12 months have at least 28 days.\n\nFINAL ANSWER: 12",
+                        "extracted": "12",
+                        "correct": true,
+                        "latency": 10.0
+                    },
+                    {
+                        "model": "mistral:7b",
+                        "raw": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "extracted": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "correct": false,
+                        "latency": 0.0
+                    }
+                ],
+                "correct": true,
+                "n_experts_correct": 2,
+                "latency": 19.48
+            },
+            "moe_synth": {
+                "experts": [
+                    {
+                        "model": "qwen2.5-coder:7b",
+                        "raw": "All months except February typically have either 30 or 31 days, but February has exactly 28 days in a common year. \n\nFINAL ANSWER: 1 month",
+                        "extracted": "1 month",
+                        "latency": 9.85
+                    },
+                    {
+                        "model": "llama3.1:8b",
+                        "raw": "All 12 months have at least 28 days.\n\nFINAL ANSWER: 12",
+                        "extracted": "12",
+                        "latency": 10.0
+                    },
+                    {
+                        "model": "mistral:7b",
+                        "raw": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "extracted": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "latency": 0.0
+                    }
+                ],
+                "synthesizer_raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 45.03
+            }
+        },
+        {
+            "id": "trick_02",
+            "category": "trick",
+            "difficulty": "medium",
+            "question": "A rooster lays an egg on top of a barn roof. Which way does it roll?",
+            "expected_answer": "Roosters don't lay eggs.",
+            "single": {
+                "raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 13.56
+            },
+            "single_cot": {
+                "raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 15.46
+            },
+            "moe_vote": {
+                "experts": [
+                    {
+                        "model": "qwen2.5-coder:7b",
+                        "raw": "The rooster cannot lay eggs, as roosters do not have reproductive organs and are incapable of laying eggs. Therefore, the question is based on a false premise.\n\nFINAL ANSWER: The rooster cannot lay an egg, so it does not roll in any direction.",
+                        "extracted": "The rooster cannot lay an egg, so it does not roll in any direction.",
+                        "correct": true,
+                        "latency": 10.21
+                    },
+                    {
+                        "model": "llama3.1:8b",
+                        "raw": "The question is based on a false premise, as roosters do not lay eggs. Only hens lay eggs.\n\nHowever, if we assume the scenario is hypothetical and a rooster somehow laid an egg, the egg would likely roll down due to gravity, regardless of the direction of the barn roof's slope or any other factors.",
+                        "extracted": "However, if we assume the scenario is hypothetical and a rooster somehow laid an egg, the egg would likely roll down due to gravity, regardless of the direction of the barn roof's slope or any other factors.",
+                        "correct": true,
+                        "latency": 11.54
+                    },
+                    {
+                        "model": "mistral:7b",
+                        "raw": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "extracted": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "correct": false,
+                        "latency": 0.0
+                    }
+                ],
+                "correct": true,
+                "n_experts_correct": 2,
+                "latency": 21.74
+            },
+            "moe_synth": {
+                "experts": [
+                    {
+                        "model": "qwen2.5-coder:7b",
+                        "raw": "The rooster cannot lay eggs, as they are male birds and do not produce eggs. Therefore, the question is based on a misunderstanding.\n\nFINAL ANSWER: The rooster cannot lay an egg, so it does not roll in any direction.",
+                        "extracted": "The rooster cannot lay an egg, so it does not roll in any direction.",
+                        "latency": 10.34
+                    },
+                    {
+                        "model": "llama3.1:8b",
+                        "raw": "The question is based on a false premise, as roosters do not lay eggs. Only hens lay eggs.\n\nHowever, if we assume the scenario is hypothetical and a rooster did lay an egg, the egg would not roll due to the lack of gravity or external forces acting upon it.\n\nBut, if we consider the surface of the barn roof to be smooth and flat, and assuming the egg was laid on its side, it would likely remain stationary due to the absence of any force causing it to roll.",
+                        "extracted": "But, if we consider the surface of the barn roof to be smooth and flat, and assuming the egg was laid on its side, it would likely remain stationary due to the absence of any force causing it to roll.",
+                        "latency": 11.72
+                    },
+                    {
+                        "model": "mistral:7b",
+                        "raw": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "extracted": "ERROR: model 'mistral:7b' not found (status code: 404)",
+                        "latency": 0.0
+                    }
+                ],
+                "synthesizer_raw": "",
+                "extracted": "",
+                "correct": false,
+                "latency": 47.79
+            }
+        }
+    ]
+}

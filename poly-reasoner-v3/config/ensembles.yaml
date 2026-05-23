@@ -1,0 +1,24 @@
+ensembles:
+  # The default ensemble used for the ASRT pipeline
+  security_judge:
+    safety_judge:
+      backend: "ollama"
+      model: "qwen2.5-coder:7b"
+    jailbreak_judge:
+      backend: "ollama"
+      model: "phi3:mini"
+    synthesizer:
+      backend: "ollama"
+      model: "qwen2.5-coder:7b"
+  
+  # A robust setup combining local models and APIs
+  hybrid_judge:
+    safety_judge:
+      backend: "ollama"
+      model: "qwen2.5-coder:7b"
+    jailbreak_judge:
+      backend: "ollama"
+      model: "phi3:mini"
+    synthesizer:
+      backend: "api"
+      model: "gpt-4o-mini"

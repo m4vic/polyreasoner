@@ -50,6 +50,20 @@ MODEL_PATHS = {
 python main.py
 ```
 
+## Web Interface (Alternative)
+
+For a cleaner UI experience, use the Gradio web interface:
+
+```bash
+# Install Gradio if not already installed
+pip install gradio
+
+# Launch web interface
+python webapp.py
+```
+
+Then open **http://127.0.0.1:7860** in your browser.
+
 ## Usage Examples
 
 ### Normal Conversation
@@ -109,6 +123,21 @@ Synthesizer (Qwen 14B) - Combines perspectives
               ↓
 Final Response
 ```
+
+## Validation Experiments
+
+Polyreasoner validation assets that were previously grouped under "Paper 4" are now organized in:
+
+- `experiments/paper4_polyreasoner_validation/`
+- `experiments/README.md`
+
+Inside that folder:
+
+- `moe_puzzle_benchmark_12/` contains the 12-puzzle MoE benchmark scripts and result JSONs.
+- `frontier_benchmark_30/` contains the 30-puzzle local-vs-frontier benchmark code, data, and figures.
+- `aeos_orchestration/` contains AEOS run/aggregation scripts used during validation.
+- `security_gatekeeper_pipeline/` contains specialist/security pipeline code migrated without heavyweight artifacts.
+- `paper_assets/` contains comparison figures used in the writeup.
 
 ## Available Agents
 
@@ -180,6 +209,6 @@ polyreasoner/
 - 12GB+ VRAM (for GPU inference)
 - Or 16GB+ RAM (for CPU inference)
 
+## License
 
-
-
+MIT
