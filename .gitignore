@@ -1,11 +1,34 @@
+# Python cache
 __pycache__/
 *.py[cod]
-.env
+*$py.class
+
+# Virtual envs
 .venv/
 venv/
 env/
-models/
+
+# Local environment and secrets
+.env
+.env.local
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local model artifacts (do not push weights)
+models/*
+!models/
+!models/readme.md
 *.gguf
+*.bin
 *.safetensors
 *.pt
 *.pth
+
+# Runtime outputs/logs
+*.log
+*.tmp
+*.bak

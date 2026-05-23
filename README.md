@@ -1,141 +1,76 @@
-# PolyReasoner
+# Polyreasoner
 
-⚠️ **DEMO PROJECT**
+Polyreasoner is a multi-perspective reasoning system focused on diversity-first inference: single-model depth vs multi-agent/model diversity.
 
-Multi-perspective AI decision analysis system.
+This repository now tracks the current codebase only. Older `v1` and `v2` remain accessible through Git history and tags/releases.
 
-**Status:** Proof of concept • Educational demo
+## Quick Start
 
-## What This Does
-
-Analyzes ideas from multiple independent perspectives:
-- Security implications
-- Business value
-- Technical feasibility
-- Long-term impact
-
-## Purpose
-
-Built as a demonstration for PromptShield architecture - showing how multiple AI agents can collaborate with defense layers between them.
-
-## Limitations
-
-- Demo quality only
-- Not optimized
-- Limited production use
-
-## Value
-
-Shows practical multi-agent architecture patterns. Useful reference for similar systems.
-
----
-
-**Part of Neural Alchemy Labs experiments.**
-
-
-Polyreasoner is an idea evaluation and decision-support system that analyzes existing ideas from multiple independent perspectives.
-
-Instead of generating new ideas or producing a single fluent answer, Polyreasoner evaluates an idea across perspectives such as security, risk, business value, feasibility, and long-term impact, then synthesizes trade-offs, disagreements, and confidence signals.
-
-Polyreasoner does **not** make decisions for you.  
-It helps you think better before making them.
-
-## ℹ️ Note
-This project explores system design and implementation patterns using AI-assisted development.
-It prioritizes clarity of architecture and ideas over production guarantees.
-
----
-
-## What Polyreasoner Is
-
-- An **idea evaluator**
-- A **multi-perspective reasoning system**
-- A **realistic LLM application** designed for security testing
-- A testbed for **PromptShield** (defense) and **Rapture** (red-team attacks)
-
-## What Polyreasoner Is Not
-
-- Not a chatbot  
-- Not an idea generator  
-- Not an auto yes/no decision engine  
-
----
-
-## Architecture (V1)
-
-- MainAgent (routing + orchestration)
-- Perspective agents (security, risk, business, finance, etc.)
-- Lightweight RAG (ideas / context)
-- Deterministic synthesis (confidence + disagreement)
-- Local-first LLM inference using `llama.cpp`
-
----
-
-## Requirements
-
-Python **3.10+** recommended.
-
-Install dependencies:
+1. Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
-Model Setup (Important)
 
-Polyreasoner uses local GGUF models via llama-cpp-python.
+2. Configure environment:
 
-1. Download a model (examples)
-
-You can use any instruct-style GGUF model. Recommended options:
-
-Qwen 2.5 1.5B Instruct (Q4)
-https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF
-
-Mistral 7B Instruct v0.2 (Q4)
-https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF
-
-Download a .gguf file, for example:
-
-qwen2.5-1.5b-instruct-q4_k_m.gguf
-
-
-or
-
-mistral-7b-instruct-v0.2.Q4_K_M.gguf
-
-2. Place the model in the project
-
-Recommended structure:
-```
-polyreasoner/
-│
-├── app.py
-├── llm.py
-├── agents/
-├── models/
-│   ├── qwen2.5-1.5b-instruct-q4_k_m.gguf
-│   # or
-│   ├── mistral-7b-instruct-v0.2.Q4_K_M.gguf
-```
-3. Set the model path
-
-Open llm.py and update the path:
-```
-MODEL_PATH = "polyreasoner/models/qwen2.5-1.5b-instruct-q4_k_m.gguf"
-
-```
-or
-```
-MODEL_PATH = "polyreasoner/models/mistral-7b-instruct-v0.2.Q4_K_M.gguf"
+```bash
+copy .env.example .env
 ```
 
-Only one model is loaded and shared across all agents.
+3. Run CLI:
+
+```bash
+python main.py
 ```
-Running Polyreasoner
-python app.py
+
+4. Run web UI:
+
+```bash
+python webapp.py
 ```
 
+## Repository Layout
 
-One-line summary
-Polyreasoner evaluates ideas by reasoning across multiple perspectives instead of producing single, fluent answers.
+| Path | Purpose |
+|---|---|
+| `main.py` | Runtime entry point |
+| `polyreasoner.py` | Core orchestration logic |
+| `agents.py` | Agent execution and panel logic |
+| `prompts.py` and `prompts/` | Prompt templates |
+| `backend/` | Backend adapters and specialist MoE helpers |
+| `modes/` | Mode-specific orchestration |
+| `experiments/` | Validation experiments and paper assets |
+| `config/` and `config.py` | Ensemble and runtime configuration |
 
+## Experiments and Evidence
+
+Primary validation assets:
+
+- `experiments/paper4_polyreasoner_validation/`
+  - `moe_puzzle_benchmark_12/`
+  - `frontier_benchmark_30/`
+  - `aeos_orchestration/`
+  - `security_gatekeeper_pipeline/`
+  - `paper_assets/`
+
+Research framing:
+
+- `experiments/DIVERSITY_VS_DEPTH.md`
+
+## Positioning
+
+Polyreasoner claims are framed as:
+
+- diversity can outperform depth-only strategies on selected reasoning tasks under fixed budgets
+- performance depends on benchmark class, cost, and latency tradeoffs
+
+## Notes
+
+- Do not commit local model weights.
+- Keep secrets in `.env` only.
+- Use tags/releases for versioned milestones.
+
+## License
+
+MIT
