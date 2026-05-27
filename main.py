@@ -255,7 +255,7 @@ def interactive_settings():
     
     # Save to file
     if SettingsManager.save(settings):
-        print("\n[OK] Settings persistently saved to config/settings.json!")
+        print("\n[OK] Settings persistently saved to settings.json!")
         # Dynamically reapply to current environment
         os.environ["POLYREASONER_BACKEND"] = settings["POLYREASONER_BACKEND"]
         os.environ["OLLAMA_HOST"] = settings["OLLAMA_HOST"]

@@ -12,6 +12,7 @@ env/
 .env
 .env.local
 settings.json
+config/settings.json
 
 # OS/editor noise
 .DS_Store
