@@ -448,3 +448,7 @@ Evaluate preset agents: Default preset is business + feasibility + risk + contra
 NOTE
 
 The setup.py wizard is optional — we can skip it and just document the .env clearly.
+Release Note (2026-05-27)
+- Polyreasoner is now positioned as a CLI/API decision engine.
+- Optional web UI track is removed from the active release scope.
+- Current public value focus: routing, multi-perspective analysis, and judge/JSON integration.

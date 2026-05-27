@@ -1,8 +1,48 @@
 # Polyreasoner
 
-Polyreasoner is a multi-perspective reasoning system focused on diversity-first inference: single-model depth vs multi-agent/model diversity.
+Polyreasoner is a multi-perspective reasoning tool for complex decisions.  
+Instead of forcing one model to think in one lane, it runs multiple perspectives and then synthesizes trade-offs.
 
-This repository now tracks the current codebase only. Older `v1` and `v2` remain accessible through Git history and tags/releases.
+## Why This Tool Exists
+
+Single-agent answers are often fast, but for high-stakes decisions they can miss blind spots.
+
+Polyreasoner exists to:
+
+- Reduce one-sided reasoning
+- Surface disagreements explicitly
+- Separate "quick chat" from "decision analysis"
+- Make trade-offs auditable for research and engineering workflows
+
+This mirrors human decision quality. Important choices improve when we hear multiple viewpoints before deciding.
+
+## Human-Style Example
+
+Question: `Should I leave my stable job and start an AI security startup?`
+
+How most people think when the decision matters:
+
+- Business lens: market demand, pricing, competition
+- Risk lens: runway, failure scenarios, dependency risk
+- Feasibility lens: can we actually build and ship this
+- Contrarian lens: strongest argument against doing it now
+
+Polyreasoner reproduces this structure programmatically and returns one synthesis with confidence and unresolved concerns.
+
+## Scope and Non-Goals
+
+This repository is intentionally focused on decision reasoning and evaluation logic.
+
+- In scope: routing, perspective panels, synthesis, and judge outputs
+- Not a goal: building a polished UI layer
+- SafetyDiff is the complementary regression tool for release-over-release safety comparison
+
+## Core Capabilities
+
+- Intent router: decides whether to chat, search, analyze context, or run multi-perspective mode
+- Multi-agent decision modes: career, business, decision, and manual custom panels
+- Security judge mode (`/judge`) for attack/response evaluation
+- Backend flexibility: local Ollama or API-based inference
 
 ## Quick Start
 
@@ -24,28 +64,32 @@ copy .env.example .env
 python main.py
 ```
 
-4. Run web UI:
+## Key Commands
 
-```bash
-python webapp.py
-```
+- `/career <query>`: career decision analysis
+- `/business <query>`: business/startup analysis
+- `/decision <query>`: general multi-perspective decision mode
+- `/manual <query> --agents risk,business,...`: custom perspective set
+- `/judge --attack "..." --response "..."`: security evaluation JSON output
+- `/settings`: update persistent backend/model settings
 
 ## Repository Layout
 
 | Path | Purpose |
 |---|---|
-| `main.py` | Runtime entry point |
-| `polyreasoner.py` | Core orchestration logic |
-| `agents.py` | Agent execution and panel logic |
-| `prompts.py` and `prompts/` | Prompt templates |
-| `backend/` | Backend adapters and specialist MoE helpers |
+| `main.py` | CLI entrypoint and interactive shell |
+| `polyreasoner.py` | Programmatic wrapper |
+| `router_agent.py` | Intent-based routing |
+| `agents.py` | Agent execution and synthesis support |
 | `modes/` | Mode-specific orchestration |
-| `experiments/` | Validation experiments and paper assets |
-| `config/` and `config.py` | Ensemble and runtime configuration |
+| `backend/` | Backend adapters and MoE helpers |
+| `cli/` | Parser, display, and context reader |
+| `experiments/` | Validation and benchmark assets |
+| `run_tests.py` | Verification suite for routing/tools/backend wiring |
 
 ## Experiments and Evidence
 
-Primary validation assets:
+Validation assets are in:
 
 - `experiments/paper4_polyreasoner_validation/`
   - `moe_puzzle_benchmark_12/`
@@ -54,22 +98,19 @@ Primary validation assets:
   - `security_gatekeeper_pipeline/`
   - `paper_assets/`
 
-Research framing:
+## Security and Open-Source Boundary
 
-- `experiments/DIVERSITY_VS_DEPTH.md`
-
-## Positioning
-
-Polyreasoner claims are framed as:
-
-- diversity can outperform depth-only strategies on selected reasoning tasks under fixed budgets
-- performance depends on benchmark class, cost, and latency tradeoffs
-
-## Notes
-
-- Do not commit local model weights.
 - Keep secrets in `.env` only.
-- Use tags/releases for versioned milestones.
+- Do not commit model weights or local checkpoints.
+- If you maintain private judge logic for ASRT, expose only integration contracts in public repos.
+
+## GitHub Release Checklist
+
+- `README.md` updated and accurate
+- `.env` ignored
+- model weights ignored
+- no `__pycache__` committed
+- verification suite runs: `python run_tests.py`
 
 ## License
 

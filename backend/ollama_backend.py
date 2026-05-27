@@ -6,6 +6,7 @@ from .base import BaseBackend
 class OllamaBackend(BaseBackend):
     def __init__(self, model_name: str = "qwen2.5-coder:7b", host: str = "http://localhost:11434"):
         self.model_name = model_name
+        self.host = host
         self.client = ollama.AsyncClient(host=host)
         
     async def complete(self, prompt: str, system_prompt: str = None, **kwargs) -> str:
@@ -61,7 +62,7 @@ class OllamaBackend(BaseBackend):
         try:
             # Quick sync check to see if daemon is responding
             import requests
-            resp = requests.get(self.client.host)
+            resp = requests.get(self.host)
             return resp.status_code == 200
         except Exception:
             return False

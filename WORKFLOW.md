@@ -30,8 +30,8 @@ flowchart TD
 
 ```mermaid
 graph LR
-    User([User]) -->|Query| WebUI[Web Interface / CLI]
-    WebUI -->|Process| Poly[Polyreasoner Core]
+    User([User]) -->|Query| Entry[CLI / API Entry]
+    Entry -->|Process| Poly[Polyreasoner Core]
     
     Poly -->|Routing Request| RouterModel[(Router Model)]
     RouterModel -->|Decision| Poly
@@ -42,8 +42,8 @@ graph LR
     Poly -->|Synthesis Request| RouterModel
     RouterModel -->|Final Output| Poly
     
-    Poly -->|Response| WebUI
-    WebUI -->|Display| User
+    Poly -->|Response| Entry
+    Entry -->|Display| User
     
     Poly -.->|Store| History[(Conversation History)]
     History -.->|Load| Poly
@@ -52,7 +52,7 @@ graph LR
 ## Step-by-Step Process
 
 ### 1. User Input
-- User sends a question via web interface or CLI
+- User sends a question via CLI or API client
 - Input is captured and sent to Polyreasoner core
 
 ### 2. Router Decision

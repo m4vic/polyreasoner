@@ -11,6 +11,7 @@ env/
 # Local environment and secrets
 .env
 .env.local
+settings.json
 
 # OS/editor noise
 .DS_Store

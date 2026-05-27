@@ -1,3 +1,5 @@
+import json
+import litellm
 from typing import AsyncIterator, Dict, Any
 from .base import BaseBackend
 
@@ -6,15 +8,53 @@ class APIBackend(BaseBackend):
         self.model_name = model_name
         
     async def complete(self, prompt: str, system_prompt: str = None, **kwargs) -> str:
-        """LiteLLM integration will go here."""
-        raise NotImplementedError("API Backend not yet implemented. Use OllamaBackend.")
+        messages = []
+        if system_prompt:
+            messages.append({"role": "system", "content": system_prompt})
+        messages.append({"role": "user", "content": prompt})
+        
+        response = await litellm.acompletion(
+            model=self.model_name,
+            messages=messages,
+            **kwargs
+        )
+        return response.choices[0].message.content or ""
 
     async def complete_json(self, prompt: str, system_prompt: str = None, **kwargs) -> Dict[str, Any]:
-        raise NotImplementedError("API Backend not yet implemented.")
+        messages = []
+        if system_prompt:
+            messages.append({"role": "system", "content": system_prompt})
+        messages.append({"role": "user", "content": prompt})
+        
+        response = await litellm.acompletion(
+            model=self.model_name,
+            messages=messages,
+            response_format={"type": "json_object"},
+            **kwargs
+        )
+        content = response.choices[0].message.content or ""
+        try:
+            return json.loads(content)
+        except json.JSONDecodeError:
+            return {"error": "Failed to parse JSON", "raw": content}
 
     async def stream(self, prompt: str, system_prompt: str = None, **kwargs) -> AsyncIterator[str]:
-        raise NotImplementedError("API Backend not yet implemented.")
-        yield ""
+        messages = []
+        if system_prompt:
+            messages.append({"role": "system", "content": system_prompt})
+        messages.append({"role": "user", "content": prompt})
+        
+        response = await litellm.acompletion(
+            model=self.model_name,
+            messages=messages,
+            stream=True,
+            **kwargs
+        )
+        async for chunk in response:
+            delta = chunk.choices[0].delta.content or ""
+            if delta:
+                yield delta
 
     def is_available(self) -> bool:
-        return False
+        return True
+

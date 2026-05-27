@@ -5,7 +5,7 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
 # Constants
 MODEL_NAME = "distilbert-base-uncased"
-EXPERTS_DIR = r"f:\AI-IN-THE-LOOP\dataset_pipeline\models\experts"
+EXPERTS_DIR = os.getenv("POLYREASONER_EXPERTS_DIR", r"f:\AI-IN-THE-LOOP\dataset_pipeline\models\experts")
 
 class ExpertEnsemble:
     """Loads and manages the 6 MoE DistilBERT models for prompt injection detection."""
@@ -26,18 +26,34 @@ class ExpertEnsemble:
     def load_models(self):
         """Loads the tokenizer and all 6 expert models into memory."""
         print("[*] Loading MoE Tokenizer...")
-        self.tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
+        try:
+            self.tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
+        except Exception as e:
+            print(f"[!] Failed to load tokenizer locally, falling back to HF Hub: {e}")
+            self.tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
         
+        # Reload env variable or settings in case it was set after init
+        experts_dir = os.getenv("POLYREASONER_EXPERTS_DIR", EXPERTS_DIR)
+
         for name in self.expert_names:
-            model_path = os.path.join(EXPERTS_DIR, name, "final")
+            model_path = os.path.join(experts_dir, name, "final")
             if os.path.exists(model_path):
-                print(f"[*] Loading Expert: {name.upper()}...")
-                model = AutoModelForSequenceClassification.from_pretrained(model_path)
+                print(f"[*] Loading local Expert: {name.upper()} from {model_path}...")
+                model_to_load = model_path
+            else:
+                # E.g. neuralchemy/distilbert-expert-direct-injection-threat-matrix
+                hf_name = name.replace("_", "-")
+                hf_repo = f"neuralchemy/distilbert-expert-{hf_name}-threat-matrix"
+                print(f"[!] Expert model '{name}' not found locally. Loading from Hugging Face: '{hf_repo}'...")
+                model_to_load = hf_repo
+
+            try:
+                model = AutoModelForSequenceClassification.from_pretrained(model_to_load)
                 model.to(self.device)
                 model.eval() # Set to evaluation mode
                 self.experts[name] = model
-            else:
-                print(f"[!] Warning: Expert model '{name}' not found at {model_path}")
+            except Exception as e:
+                print(f"[!] ERROR: Failed to load expert model '{name}' from {model_to_load}: {e}")
                 
     def analyze_prompt(self, prompt: str) -> dict:
         """Passes the prompt through all loaded experts and returns their verdicts."""

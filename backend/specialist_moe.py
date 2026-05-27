@@ -48,7 +48,7 @@ LABEL_MAPS = {
     "surface":  {0: "user_input", 1: "document", 2: "api", 3: "tool_output"},
 }
 
-MODELS_BASE = r"f:\AI-IN-THE-LOOP\dataset_pipeline\models"
+MODELS_BASE = os.getenv("POLYREASONER_MOE_DIR", r"f:\AI-IN-THE-LOOP\dataset_pipeline\models")
 
 # Dimension order — binary first so we can short-circuit
 DIMS = ["binary", "intent", "technique", "severity", "surface"]
@@ -79,19 +79,35 @@ class SpecialistMoE:
             return
 
         print(f"[SpecialistMoE] Device: {self.device}")
+        
         # All specialists share the same DistilBERT tokenizer
-        self.tokenizer = AutoTokenizer.from_pretrained("distilbert-base-uncased")
+        # Try loading local, otherwise load from Hugging Face
+        try:
+            self.tokenizer = AutoTokenizer.from_pretrained("distilbert-base-uncased")
+        except Exception as e:
+            print(f"[SpecialistMoE] Failed to load local tokenizer, trying Hugging Face Hub: {e}")
+            self.tokenizer = AutoTokenizer.from_pretrained("distilbert-base-uncased")
+
+        # Reload settings or env variables in case it was set after init
+        models_base = os.getenv("POLYREASONER_MOE_DIR", self.models_base)
 
         for dim in DIMS:
-            model_path = os.path.join(self.models_base, f"specialist_{dim}", "final")
-            if not os.path.exists(model_path):
-                print(f"[SpecialistMoE] Missing specialist: {dim} at {model_path}")
-                continue
-            print(f"[SpecialistMoE] Loading [{dim}] specialist...")
-            model = AutoModelForSequenceClassification.from_pretrained(model_path)
-            model.to(self.device)
-            model.eval()
-            self.specialists[dim] = model
+            model_path = os.path.join(models_base, f"specialist_{dim}", "final")
+            if os.path.exists(model_path):
+                print(f"[SpecialistMoE] Loading local [{dim}] specialist from: {model_path}...")
+                model_to_load = model_path
+            else:
+                hf_repo = f"neuralchemy/distilbert-specialist-{dim}-threat-matrix"
+                print(f"[SpecialistMoE] Local model not found for [{dim}]. Loading from Hugging Face Hub: '{hf_repo}'...")
+                model_to_load = hf_repo
+
+            try:
+                model = AutoModelForSequenceClassification.from_pretrained(model_to_load)
+                model.to(self.device)
+                model.eval()
+                self.specialists[dim] = model
+            except Exception as e:
+                print(f"[SpecialistMoE] ERROR: Failed to load specialist [{dim}] from {model_to_load}: {e}")
 
         loaded = list(self.specialists.keys())
         # Avoid emoji/non-ASCII to prevent Windows console encoding crashes.
