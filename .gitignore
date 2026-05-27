@@ -21,9 +21,7 @@ Thumbs.db
 .idea/
 
 # Local model artifacts (do not push weights)
-models/*
-!models/
-!models/readme.md
+models/
 *.gguf
 *.bin
 *.safetensors
